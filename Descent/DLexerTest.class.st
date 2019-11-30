@@ -71,14 +71,22 @@ DLexerTest >> testSimple [
 DLexerTest >> testSimple2 [
 	| p | 
 	p := DLexer new.
-	p on: '(title: Le printemps d''helliconia, read: no,  style: SF, price: 1)'.
+	p on: '(title: Le printemps d''helliconia, read: no, price: 1)'.
 	self assert: p nextToken equals: $(.
 	self assert: p nextToken equals: 'title'.
 	self assert: p nextToken equals: $:.
 	self assert: p nextToken equals: 'Le'.
-		self assert: p nextToken equals: 'Le'.
-			self assert: p nextToken equals: 'Le'.
-				self assert: p nextToken equals: 'Le'.
+	self assert: p nextToken equals: 'printemps'.
+	self assert: p nextToken equals: 'd''helliconia'.
+	self assert: p nextToken equals: $,.
+	self assert: p nextToken equals: 'read'.
+	self assert: p nextToken equals: $:.
+	self assert: p nextToken equals: 'no'.
+	self assert: p nextToken equals: $,.
+	self assert: p nextToken equals: 'price'.
+	self assert: p nextToken equals: $:.
+	self assert: p nextToken equals: '1'.
+	self assert: p nextToken equals: $).
 ]
 
 { #category : #tests }

@@ -58,18 +58,23 @@ DLexer >> isAtEnd [
 ]
 
 { #category : #token }
+DLexer >> isCurrentALetter [ 
+
+	^ currentChar isAlphaNumeric or: [ currentChar = $' ]
+]
+
+{ #category : #token }
 DLexer >> isNotAtEnd [
 
 	^ currentChar isNotNil
 ]
 
 { #category : #token }
-DLexer >> name [ 
-
+DLexer >> name [
 	| token |
 	token := (String new: 100) writeStream.
-	[ currentChar isLetter ] whileTrue: 
-			[ token nextPut: currentChar. 
+	[ self isCurrentALetter ]
+		whileTrue: [ token nextPut: currentChar.
 			self consume ].
 	^ token contents
 ]
