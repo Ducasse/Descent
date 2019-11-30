@@ -6,117 +6,117 @@ Class {
 
 { #category : #'tests consume' }
 DLexerTest >> testConsume [
-	| p | 
-	p := DLexer new.
-	p on: 'abc'.
-	self assert: p currentChar equals: $a.
-	p consume.
-	self assert: p currentChar equals: $b.
-	p consume.
-	self assert: p currentChar equals: $c.
-	p consume.
-	self assert: p isAtEnd
+	| l | 
+	l := DLexer new.
+	l on: 'abc'.
+	self assert: l currentChar equals: $a.
+	l consume.
+	self assert: l currentChar equals: $b.
+	l consume.
+	self assert: l currentChar equals: $c.
+	l consume.
+	self assert: l isAtEnd
 ]
 
 { #category : #tests }
 DLexerTest >> testEmpty [
-	| p | 
-	p := DLexer new.
-	p on: ''.
-	self assert: p nextToken equals: ''.
+	| l | 
+	l := DLexer new.
+	l on: ''.
+	self assert: l nextToken equals: ''.
 	
 ]
 
 { #category : #'tests consume' }
 DLexerTest >> testEmptyConsume [
-	| p | 
-	p := DLexer new.
-	p on: ''.
-	self assert: p currentChar isNil.
-	p consume.
+	| l | 
+	l := DLexer new.
+	l on: ''.
+	self assert: l currentChar isNil.
+	l consume.
 	
 ]
 
 { #category : #tests }
 DLexerTest >> testOnlySpace [
-	| p | 
-	p := DLexer new.
-	p on: '   	
+	| l | 
+	l := DLexer new.
+	l on: '   	
 		'.
-	self assert: p nextToken equals: ''.
+	self assert: l nextToken equals: ''.
 	
 ]
 
 { #category : #'tests consume' }
 DLexerTest >> testSepConsume [
-	| p | 
-	p := DLexer new.
-	p on: '('.
-	self assert: p currentChar equals: $(.
+	| l | 
+	l := DLexer new.
+	l on: '('.
+	self assert: l currentChar equals: $(.
 	
 ]
 
 { #category : #tests }
 DLexerTest >> testSimple [ 
-	|  p | 
-	p := DLexer new.
-	p on: '(title: '.
-	self assert: p nextToken equals: $(.
-	self assert: p nextToken equals: 'title'.
-	self assert: p nextToken equals: $:
+	| l | 
+	l := DLexer new.
+	l on: '(title: '.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:
 	
 	
 ]
 
 { #category : #tests }
 DLexerTest >> testSimple2 [
-	| p | 
-	p := DLexer new.
-	p on: '(title: Le printemps d''helliconia, read: no, price: 1)'.
-	self assert: p nextToken equals: $(.
-	self assert: p nextToken equals: 'title'.
-	self assert: p nextToken equals: $:.
-	self assert: p nextToken equals: 'Le'.
-	self assert: p nextToken equals: 'printemps'.
-	self assert: p nextToken equals: 'd''helliconia'.
-	self assert: p nextToken equals: $,.
-	self assert: p nextToken equals: 'read'.
-	self assert: p nextToken equals: $:.
-	self assert: p nextToken equals: 'no'.
-	self assert: p nextToken equals: $,.
-	self assert: p nextToken equals: 'price'.
-	self assert: p nextToken equals: $:.
-	self assert: p nextToken equals: '1'.
-	self assert: p nextToken equals: $).
+	| l | 
+	l := DLexer new.
+	l on: '(title: Le lrintemls d''helliconia, read: no, price: 1)'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'Le'.
+	self assert: l nextToken equals: 'lrintemls'.
+	self assert: l nextToken equals: 'd''helliconia'.
+	self assert: l nextToken equals: $,.
+	self assert: l nextToken equals: 'read'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'no'.
+	self assert: l nextToken equals: $,.
+	self assert: l nextToken equals: 'price'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: '1'.
+	self assert: l nextToken equals: $).
 ]
 
 { #category : #tests }
 DLexerTest >> testSpaceAndSep [
-	|  p | 
-	p := DLexer new.
-	p on: '    (    '.
-	self assert: p nextToken equals: $(.
+	| l | 
+	l := DLexer new.
+	l on: '    (    '.
+	self assert: l nextToken equals: $(.
 	
 ]
 
 { #category : #tests }
 DLexerTest >> testSpaceAndSep2 [
-	|  p | 
-	p := DLexer new.
-	p on: '    (       )   '.
-	self assert: p nextToken equals: $(.
-	self assert: p nextToken equals: $).
+	| l | 
+	l := DLexer new.
+	l on: '    (       )   '.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: $).
 	
 ]
 
 { #category : #'tests consume' }
 DLexerTest >> testSpaceConsume [
-	| p | 
-	p := DLexer new.
-	p on: '  '.
-	self assert: p currentChar equals: Character space.
-	p consume.
-	self assert: p currentChar equals: Character space.
-	p consume. 
-	self assert: p isAtEnd
+	| l | 
+	l := DLexer new.
+	l on: '  '.
+	self assert: l currentChar equals: Character space.
+	l consume.
+	self assert: l currentChar equals: Character space.
+	l consume. 
+	self assert: l isAtEnd
 ]

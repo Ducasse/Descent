@@ -8,6 +8,8 @@ I recogniseI
 Whitespaces and separators can be customised using setters.
 
 Subclasses may change the definition of names by redefining isCurrentALetter.
+
+Next iteration should manage an escape character, and explicit list ""il fait beau, ou pas"" to avoid to use escape char
 "
 Class {
 	#name : #DLexer,
