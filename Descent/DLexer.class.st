@@ -1,3 +1,14 @@
+"
+I'm a simple lexer.
+
+I recogniseI 
+	names: list of characters letter and number and '
+	separators: one character separator. 
+	
+Whitespaces and separators can be customised using setters.
+
+Subclasses may change the definition of names by redefining isCurrentALetter.
+"
 Class {
 	#name : #DLexer,
 	#superclass : #Object,
@@ -130,6 +141,12 @@ DLexer >> sep: anObject [
 	sep := anObject
 ]
 
+{ #category : #initialization }
+DLexer >> separatorCharacters: aCol [
+	sep := aCol
+	
+]
+
 { #category : #accessing }
 DLexer >> white [
 	^ white
@@ -138,4 +155,10 @@ DLexer >> white [
 { #category : #accessing }
 DLexer >> white: anObject [
 	white := anObject
+]
+
+{ #category : #initialization }
+DLexer >> whitespaceCharacters: aCol [
+	white := aCol
+	
 ]
