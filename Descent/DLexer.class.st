@@ -10,6 +10,12 @@ Class {
 	#category : #Descent
 }
 
+{ #category : #accessing }
+DLexer >> atEndValue [
+
+	^ ''
+]
+
 { #category : #eating }
 DLexer >> consume [
 	
@@ -51,19 +57,19 @@ DLexer >> initialize [
 	sep := self defaultSeparators 
 ]
 
-{ #category : #token }
+{ #category : #testing }
 DLexer >> isAtEnd [
 
 	^ currentChar isNil
 ]
 
-{ #category : #token }
+{ #category : #testing }
 DLexer >> isCurrentALetter [ 
 
 	^ currentChar isAlphaNumeric or: [ currentChar = $' ]
 ]
 
-{ #category : #token }
+{ #category : #testing }
 DLexer >> isNotAtEnd [
 
 	^ currentChar isNotNil
@@ -84,11 +90,12 @@ DLexer >> nextToken [
 	"Return a token or an empty string"
 
 	| gotSep |
-	self isAtEnd ifTrue: [ ^ '' ].
+	self isAtEnd ifTrue: [ ^ self atEndValue ].
 	[ self isNotAtEnd ]
 		whileTrue: [ 
 		 	(white includes: currentChar)
-				ifTrue: [ self eatWhitespace ]. 
+				ifTrue: [ self eatWhitespace ].
+			self isAtEnd ifTrue: [ ^ self atEndValue ].	
 			gotSep := sep includes: currentChar.
 			gotSep
 				ifTrue: [ | tmp | 

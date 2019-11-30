@@ -33,6 +33,7 @@ DLexerTest >> testEmptyConsume [
 	p := DLexer new.
 	p on: ''.
 	self assert: p currentChar isNil.
+	p consume.
 	
 ]
 
