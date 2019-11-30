@@ -84,6 +84,7 @@ DLexer >> nextToken [
 	"Return a token or an empty string"
 
 	| gotSep |
+	self isAtEnd ifTrue: [ ^ '' ].
 	[ self isNotAtEnd ]
 		whileTrue: [ 
 		 	(white includes: currentChar)
