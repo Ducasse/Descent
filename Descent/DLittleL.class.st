@@ -94,7 +94,7 @@ DLittleL >> parse3: aString [
 ]
 
 { #category : #parsing }
-DLittleL >> parse: aString [ 
+DLittleL >> parse4: aString [ 
 	| pair |
 	l := DLexer new.
 	l on: aString.
@@ -103,7 +103,16 @@ DLittleL >> parse: aString [
 		ifTrue: [ 
 			pair := self scanPairBody.
 			Transcript show: pair printString.
-			^ pair ]
+			^ pair ].
+	
+]
+
+{ #category : #parsing }
+DLittleL >> parse: aString [ 
+
+	l := DLexer new.
+	l on: aString.
+	^ self scanPair
 ]
 
 { #category : #parsing }

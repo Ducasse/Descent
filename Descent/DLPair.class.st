@@ -1,3 +1,10 @@
+"
+I represent a pair: a:b and c:d in the following
+
+
+( a : b )
+( a : b ( c : d))
+"
 Class {
 	#name : #DLPair,
 	#superclass : #Object,
@@ -7,6 +14,11 @@ Class {
 	],
 	#category : #Descent
 }
+
+{ #category : #'instance creation' }
+DLPair class >> key: aKey value: aValue [ 
+	^ self new key: aKey ; value: aValue; yourself
+]
 
 { #category : #accessing }
 DLPair >> key [
@@ -19,9 +31,22 @@ DLPair >> key: aString [
 ]
 
 { #category : #printing }
+DLPair >> printBodyOn: aStream [
+
+	aStream print: key.
+	aStream << ' : '.
+	aStream print: value.
+
+
+]
+
+{ #category : #printing }
 DLPair >> printOn: aStream [
 
-	aStream nextPutAll: '(', key ,': ', value asString, ')'
+	aStream << '('.
+	self printBodyOn: aStream.
+	aStream << ')'
+
 ]
 
 { #category : #accessing }
