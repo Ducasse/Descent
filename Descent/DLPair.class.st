@@ -13,9 +13,15 @@ DLPair >> key [
 	^ key
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 DLPair >> key: aString [ 
 	key := aString
+]
+
+{ #category : #printing }
+DLPair >> printOn: aStream [
+
+	aStream nextPutAll: '(', key ,': ', value asString, ')'
 ]
 
 { #category : #accessing }

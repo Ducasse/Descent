@@ -11,4 +11,5 @@ DLittleLTest >> testParseSimplePair [
 	pair := p parse: '(read: no)'.
 	self assert: pair key equals: 'read'.
 	self assert: pair value equals: 'no'.
+	self assert: pair printString equals: '(read: no)'
 ]

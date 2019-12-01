@@ -12,8 +12,8 @@ A little list description language
 
 Grammar
 
-pair ->  '(' key ':' value ')'	
-value ->  pair ('(' pair ')') *
+pair ->  '(' key ':' value following ')'	
+following ->   ('(' pair ')') *
 
 A possible variation is to introduce , to avoid ( )
 
@@ -66,7 +66,7 @@ Class {
 }
 
 { #category : #parsing }
-DLittleL >> parse: aString [ 
+DLittleL >> parse2: aString [ 
 	l := DLexer new.
 	l on: aString.
 	l nextToken = $(
@@ -75,11 +75,60 @@ DLittleL >> parse: aString [
 					key := l nextToken.
 					sep := l nextToken.
 					sep = $:
-						ifFalse: [ self error: 'Malformed string' ]
+						ifFalse: [ self error: 'Missing :' ]
 						ifTrue: [ value := l nextToken.
 							pair := DLPair new key: key ; value: value.
 							l nextToken = $)
-									ifFalse: [ self error: 'Malformed string'   ].
+									ifFalse: [ self error: 'Missing )'   ].
 					 		^ pair  
 					]]
+		ifFalse: [ self error: 'Missing (' ]
+]
+
+{ #category : #parsing }
+DLittleL >> parse3: aString [ 
+
+	l := DLexer new.
+	l on: aString.
+	^ self scanPair
+]
+
+{ #category : #parsing }
+DLittleL >> parse: aString [ 
+	| pair |
+	l := DLexer new.
+	l on: aString.
+	l nextToken = $(
+		ifFalse: [ self error: 'Missing (' ]
+		ifTrue: [ 
+			pair := self scanPairBody.
+			Transcript show: pair printString.
+			^ pair ]
+]
+
+{ #category : #parsing }
+DLittleL >> scanPair [
+	| pair |
+	l nextToken = $(
+		ifFalse: [ self error: 'Missing (' ]
+		ifTrue: [ 
+			pair := self scanPairBody.
+			Transcript show: pair printString.
+			^ pair ]
+]
+
+{ #category : #parsing }
+DLittleL >> scanPairBody [
+	| key value sep pair |
+	key := l nextToken.
+	sep := l nextToken.
+	sep = $:
+		ifFalse: [ self error: 'Missing :' ]
+		ifTrue: [ 
+				value := l nextToken.
+				pair := DLPair new key: key ; value: value.
+				l nextToken = $)
+					ifFalse: [ self error: 'Missing )'   ].
+				^ pair  
+		]
 ]
