@@ -33,9 +33,9 @@ DLPair >> key: aString [
 { #category : #printing }
 DLPair >> printBodyOn: aStream [
 
-	aStream print: key.
+	aStream << key asString.
 	aStream << ' : '.
-	aStream print: value.
+	aStream << value asString.
 
 
 ]

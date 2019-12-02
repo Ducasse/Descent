@@ -15,6 +15,16 @@ Grammar
 pair ->  '(' key ':' value following ')'	
 following ->   ('(' pair ')') *
 
+
+( a : b )
+( a : b ( c : d))
+
+Pair: ( key : Sequence )
+Sequence : value Pair* 
+
+
+
+
 A possible variation is to introduce , to avoid ( )
 
 (author : Aldiss / Brian 
@@ -128,16 +138,18 @@ DLittleL >> scanPair [
 
 { #category : #parsing }
 DLittleL >> scanPairBody [
-	| key value sep pair |
+	| key value sep pair isOpening |
 	key := l nextToken.
 	sep := l nextToken.
 	sep = $:
 		ifFalse: [ self error: 'Missing :' ]
 		ifTrue: [ 
 				value := l nextToken.
-				pair := DLPair new key: key ; value: value.
-				l nextToken = $)
-					ifFalse: [ self error: 'Missing )'   ].
+				pair := DLList new key: key value: value.
+				isOpening := l nextToken.
+				isOpening = $(
+					ifTrue: [ pair addPair: self scanPairBody ]	
+					ifFalse: [  isOpening = $) ifFalse: [ self error: 'Missing )' ] ].
 				^ pair  
-		]
+				]
 ]
