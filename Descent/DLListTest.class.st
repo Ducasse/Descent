@@ -47,6 +47,6 @@ DLListTest >> testPrintOnSimpleVersion [
 	| l |
 	l := DLList new.
 	l key: 1 value: 2.
-	self assert: l printString equals: '(1 : 2 )'.
+	self assert: l printString equals: '(1 : 2)'.
  
 ]
