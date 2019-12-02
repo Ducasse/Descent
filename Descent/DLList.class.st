@@ -48,10 +48,12 @@ DLList >> printOn: aStream [
 
 	aStream << '('.
 	head printBodyOn: aStream.
-	aStream space.
+	
+	self restIsEmpty
+		ifFalse: [ aStream space.
 	pairSequence 
 		do: [ :each | aStream print: each ] 
-		separatedBy: [ aStream space ].
+		separatedBy: [ aStream space ] ].
 	aStream << ')'.
 ]
 
