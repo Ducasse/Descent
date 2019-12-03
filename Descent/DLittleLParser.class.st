@@ -1,15 +1,13 @@
 "
-A little list description language parser.
+A little list description language parser named DLittle.
+
+(a:b 
+	(c:d (e:f) (g:h))
+	(z:k (r:t) (p:q)))
 
 Hand written to feel the pain. 
 The idea is to refactor it to get a canonical shape. 
 
-Grammar:
-pair ->  '(' key ':' value following ')'	
-following ->   ('(' pair ')') *
-
-( a : b )
-( a : b ( c : d))
 
 
 (author : Aldiss / Brian 
@@ -20,11 +18,43 @@ following ->   ('(' pair ')') *
   (books:
     	( title: L'instant de l'eclipse (read: no)  (style: fantaisie) (price: 1))
 
+In yaml 
+	a:b is a dict at:put: 
+	- is a list of item
+i.e.,
+
+Moorcock, Michael : 
+  Legende d'hawkmoon secret des Runes : 
+   - { title: Le joyau noir, number: 1, read: no, originalTitle: ""The jewel in the Skull"", year: 1967}
+   - { title: Le dieu fou, number: 2, read: no, originalTitle: ""The Mad God’s Amulet"", year: 1968}
+  Legende d'hawkmoon secret des Compte d'airain : 
+   - { title: Le comte Airain, number: 5, read: no, originalTitle: ""Count Brass"", year: 1973}
+   - { title: Le champion de Garathorm, number: 6, read: no, originalTitle: ""The Champion of Garathorm"", year: 1973}
+   - { title:  La quête de Tanelorn, number: 7, read: no, originalTitle: ""The quest of Garathorm"", year: 1975}
+
+In DLittle we get list by construction. 
+
+DLittle Grammar:
+start -> Pair
+Pair ->  '(' Key ':' Value Following ')'	
+Following ->   ('(' Pair ')') *
+Key -> char*
+Value -> char*
+
 
 
 Next iteration
 	- handle string or spaces so that we can write ( a : le jour ) and the value should be ""le jour"".
-
+	- escape character?
+	- better tests for strange characters
+	
+	- Now we have only on sexp like stuff (with nested sexp)
+		(a:b 
+			(c:d (e:f) (g:h))
+			(c:d (e:f) (g:h)))
+		Do we want to have list of sexp without having nesting?
+		It would means that the file can be cut in the middle and we lost half of data.
+		
 A possible variation is to introduce , to avoid ( )
 
 (author : Aldiss / Brian 
@@ -37,20 +67,8 @@ A possible variation is to introduce , to avoid ( )
 
 
 
-
-(authors : 
-     (author : foo), (author : herbert)
-     (serie : helliconia  
-
-Name : letter+digit+'
-Separators  : : ( ) , 
-Key : Name
-
-
-
-
-
-
+Next point is to have a DTD like description (expressed in DLittle) to map key to models.
+The idea there is how to map DLittle expression so a more complex meta model: books, series, authors...
 
 DTD
 <?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
@@ -90,7 +108,6 @@ DLittleLParser >> scanPair [
 		ifFalse: [ self error: 'Missing (' ]
 		ifTrue: [ 
 			pair := self scanPairBody.
-			Transcript show: pair printString.
 			^ pair ]
 ]
 
