@@ -146,10 +146,11 @@ DLittleL >> scanPairBody [
 		ifTrue: [ 
 				value := l nextToken.
 				pair := DLList new key: key value: value.
-				isOpening := l nextToken.
-				isOpening = $(
-					ifTrue: [ pair addPair: self scanPairBody ]	
-					ifFalse: [  isOpening = $) ifFalse: [ self error: 'Missing )' ] ].
+				
+				[ isOpening := l nextToken.
+				isOpening = $( ] whileTrue: 
+						[ pair addPair: self scanPairBody ].	
+				isOpening = $) ifFalse: [ self error: 'Missing )' ] ].
 				^ pair  
-				]
+			
 ]
