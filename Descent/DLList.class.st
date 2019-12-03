@@ -44,6 +44,14 @@ DLList >> key: aKeyObject value: aValueObject [
 ]
 
 { #category : #printing }
+DLList >> prettyPrintString [ 
+
+	^ String streamContents: [ :str |
+		self printPrettyOn: str
+		]
+]
+
+{ #category : #printing }
 DLList >> printOn: aStream [
 
 	aStream << '('.
@@ -57,6 +65,17 @@ DLList >> printOn: aStream [
 	aStream << ')'.
 ]
 
+{ #category : #printing }
+DLList >> printPrettyOn: aStream [
+  aStream << '('.
+  head printBodyOn: aStream.
+  self restIsNotEmpty ifTrue: [ 
+			aStream cr.
+			pairSequence do: [:each |  each printPrettyOn: aStream ] separatedBy: [ aStream space ] ].
+  aStream << ')'
+  
+]
+
 { #category : #initialization }
 DLList >> restDo: aBlock [ 
 	
@@ -66,6 +85,11 @@ DLList >> restDo: aBlock [
 { #category : #testing }
 DLList >> restIsEmpty [
 	^ pairSequence isEmpty
+]
+
+{ #category : #testing }
+DLList >> restIsNotEmpty [
+	^ pairSequence isNotEmpty
 ]
 
 { #category : #accessing }

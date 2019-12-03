@@ -1,13 +1,16 @@
+"
+This class contains tests of a parser for a little parenthesised language.
+"
 Class {
-	#name : #DLittleLTest,
+	#name : #DLittleLParserTest,
 	#superclass : #TestCase,
 	#category : #Descent
 }
 
 { #category : #tests }
-DLittleLTest >> testParseFullExample [
+DLittleLParserTest >> testParseFullExample [
 	| p list |
-	p := DLittleL new. 
+	p := DLittleLParser new. 
 	list := p parse: '(author : Aldiss 
   (serie : helliconia  
    		(title: Printempts (read: no) (style: SF) (price: 1))
@@ -19,9 +22,9 @@ DLittleLTest >> testParseFullExample [
 ]
 
 { #category : #tests }
-DLittleLTest >> testParseSimplePair [
+DLittleLParserTest >> testParseSimplePair [
 	| p pair |
-	p := DLittleL new. 
+	p := DLittleLParser new. 
 	pair := p parse: '(read: 1)'.
 	self assert: pair key equals: 'read'.
 	self assert: pair value equals: '1'.
@@ -29,9 +32,9 @@ DLittleLTest >> testParseSimplePair [
 ]
 
 { #category : #tests }
-DLittleLTest >> testParseSimplePairWithRest [
+DLittleLParserTest >> testParseSimplePairWithRest [
 	| p list |
-	p := DLittleL new. 
+	p := DLittleLParser new. 
 	list := p parse: '(firstKey : firstValue (secondKey: secondValue))'.
 	self assert: list key equals: 'firstKey'.
 	self assert: list value equals: 'firstValue'.
@@ -40,17 +43,17 @@ DLittleLTest >> testParseSimplePairWithRest [
 ]
 
 { #category : #tests }
-DLittleLTest >> testParseSimplePairWithRest2 [
+DLittleLParserTest >> testParseSimplePairWithRest2 [
 	| p list |
-	p := DLittleL new. 
+	p := DLittleLParser new. 
 	list := p parse: '(firstKey : firstValue (secondKey : secondValue (key : val)))'.
 	self assert: list printString equals: '(firstKey : firstValue (secondKey : secondValue (key : val)))'
 ]
 
 { #category : #tests }
-DLittleLTest >> testParseSimplePairWithRestList [
+DLittleLParserTest >> testParseSimplePairWithRestList [
 	| p list |
-	p := DLittleL new. 
+	p := DLittleLParser new. 
 	list := p parse: '(firstKey : firstValue (secondKey: secondValue) (thirdKey : thirdValue))'.
 	self assert: list key equals: 'firstKey'.
 	self assert: list value equals: 'firstValue'.

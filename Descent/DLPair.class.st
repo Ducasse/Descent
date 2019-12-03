@@ -49,6 +49,15 @@ DLPair >> printOn: aStream [
 
 ]
 
+{ #category : #printing }
+DLPair >> printPrettyOn: aStream [
+
+	aStream << '('.
+	self printBodyOn: aStream.
+	aStream << ')'
+
+]
+
 { #category : #accessing }
 DLPair >> value [
 	^ value

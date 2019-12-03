@@ -1,5 +1,16 @@
 "
-A little list description language
+A little list description language parser.
+
+Hand written to feel the pain. 
+The idea is to refactor it to get a canonical shape. 
+
+Grammar:
+pair ->  '(' key ':' value following ')'	
+following ->   ('(' pair ')') *
+
+( a : b )
+( a : b ( c : d))
+
 
 (author : Aldiss / Brian 
   (serie : helliconia  
@@ -10,20 +21,9 @@ A little list description language
     	( title: L'instant de l'eclipse (read: no)  (style: fantaisie) (price: 1))
 
 
-Grammar
 
-pair ->  '(' key ':' value following ')'	
-following ->   ('(' pair ')') *
-
-
-( a : b )
-( a : b ( c : d))
-
-Pair: ( key : Sequence )
-Sequence : value Pair* 
-
-
-
+Next iteration
+	- handle string or spaces so that we can write ( a : le jour ) and the value should be ""le jour"".
 
 A possible variation is to introduce , to avoid ( )
 
@@ -67,7 +67,7 @@ DTD
 
 "
 Class {
-	#name : #DLittleL,
+	#name : #DLittleLParser,
 	#superclass : #Object,
 	#instVars : [
 		'l'
@@ -76,7 +76,7 @@ Class {
 }
 
 { #category : #parsing }
-DLittleL >> parse2: aString [ 
+DLittleLParser >> parse2: aString [ 
 	l := DLexer new.
 	l on: aString.
 	l nextToken = $(
@@ -96,7 +96,7 @@ DLittleL >> parse2: aString [
 ]
 
 { #category : #parsing }
-DLittleL >> parse3: aString [ 
+DLittleLParser >> parse3: aString [ 
 
 	l := DLexer new.
 	l on: aString.
@@ -104,7 +104,7 @@ DLittleL >> parse3: aString [
 ]
 
 { #category : #parsing }
-DLittleL >> parse4: aString [ 
+DLittleLParser >> parse4: aString [ 
 	| pair |
 	l := DLexer new.
 	l on: aString.
@@ -118,7 +118,7 @@ DLittleL >> parse4: aString [
 ]
 
 { #category : #parsing }
-DLittleL >> parse: aString [ 
+DLittleLParser >> parse: aString [ 
 
 	l := DLexer new.
 	l on: aString.
@@ -126,7 +126,7 @@ DLittleL >> parse: aString [
 ]
 
 { #category : #parsing }
-DLittleL >> scanPair [
+DLittleLParser >> scanPair [
 	| pair |
 	l nextToken = $(
 		ifFalse: [ self error: 'Missing (' ]
@@ -137,7 +137,7 @@ DLittleL >> scanPair [
 ]
 
 { #category : #parsing }
-DLittleL >> scanPairBody [
+DLittleLParser >> scanPairBody [
 	| key value sep pair isOpening |
 	key := l nextToken.
 	sep := l nextToken.
