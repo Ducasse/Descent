@@ -76,48 +76,6 @@ Class {
 }
 
 { #category : #parsing }
-DLittleLParser >> parse2: aString [ 
-	l := DLexer new.
-	l on: aString.
-	l nextToken = $(
-		ifTrue: [ 
-					| key value sep pair |
-					key := l nextToken.
-					sep := l nextToken.
-					sep = $:
-						ifFalse: [ self error: 'Missing :' ]
-						ifTrue: [ value := l nextToken.
-							pair := DLPair new key: key ; value: value.
-							l nextToken = $)
-									ifFalse: [ self error: 'Missing )'   ].
-					 		^ pair  
-					]]
-		ifFalse: [ self error: 'Missing (' ]
-]
-
-{ #category : #parsing }
-DLittleLParser >> parse3: aString [ 
-
-	l := DLexer new.
-	l on: aString.
-	^ self scanPair
-]
-
-{ #category : #parsing }
-DLittleLParser >> parse4: aString [ 
-	| pair |
-	l := DLexer new.
-	l on: aString.
-	l nextToken = $(
-		ifFalse: [ self error: 'Missing (' ]
-		ifTrue: [ 
-			pair := self scanPairBody.
-			Transcript show: pair printString.
-			^ pair ].
-	
-]
-
-{ #category : #parsing }
 DLittleLParser >> parse: aString [ 
 
 	l := DLexer new.
