@@ -5,8 +5,55 @@ Class {
 }
 
 { #category : #tests }
+DLPrinterTest >> testPrinterMorePair [
+	| l |
+	l := DLList key: 'author' value: 'Bob'.
+	l addPair: ((DLList key: 'serie' value: 'Wargames') addPair: (DLPair key: 'title' value: 'JolyJumper')).
+	l addPair: (DLPair key: 'serie'  value: 'Foobar').
+	self 
+		assert: (DLPrinter new print: l)
+		equals:
+ '(author : Bob
+	(serie : Wargames
+		(title : JolyJumper))
+	(serie : Foobar))'		
+]
+
+{ #category : #tests }
 DLPrinterTest >> testPrinterSimplePair [
 	| p |
 	p := DLPair key: 'olala' value: 'itscool'.
 	self assert: (DLPrinter new print: p) equals: '(olala : itscool)'
+]
+
+{ #category : #tests }
+DLPrinterTest >> testPrinterTwoRealSubList [
+	| l |
+	l := DLList key: 'author' value: 'Bob'.
+	l addPair: ((DLList key: 'serie' value: 'Wargames') addPair: (DLList key: 'title' value: 'JolyJumper')).
+	l addPair: ((DLList key: 'serie'  value: 'Foobar') addPair: (DLList key: 'title' value: 'Foobar attacks')).
+	self 
+		assert: (DLPrinter new print: l)
+		equals: 
+ '(author : Bob
+	(serie : Wargames
+		(title : JolyJumper))
+	(serie : Foobar
+		(title : Foobar attacks)))'		
+]
+
+{ #category : #tests }
+DLPrinterTest >> testPrinterTwoSubList [
+	| l |
+	l := DLList key: 'author' value: 'Bob'.
+	l addPair: ((DLList key: 'serie' value: 'Wargames') addPair: (DLPair key: 'title' value: 'JolyJumper')).
+	l addPair: ((DLList key: 'serie'  value: 'Foobar') addPair: (DLPair key: 'title' value: 'Foobar attacks')).
+	self 
+		assert: (DLPrinter new print: l)
+		equals:
+ '(author : Bob
+	(serie : Wargames
+		(title : JolyJumper))
+	(serie : Foobar
+		(title : Foobar attacks)))'	
 ]

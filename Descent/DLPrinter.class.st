@@ -38,8 +38,14 @@ DLPrinter >> pairBody: aPair [
 
 { #category : #public }
 DLPrinter >> print: aDLPair [ 
+
 	aDLPair accept: self.
 	^ stream contents
+]
+
+{ #category : #visiting }
+DLPrinter >> tabulate [
+	tabs timesRepeat: [ stream nextPut: Character tab ].
 ]
 
 { #category : #visiting }
@@ -50,11 +56,12 @@ DLPrinter >> visitHead: aPair [
 
 { #category : #visiting }
 DLPrinter >> visitList: aList [
-	
+
 	self increaseTab.
 	stream nextPut: $(.
 	super visitList: aList.
-	stream nextPut: $)
+	stream nextPut: $).
+	self decreaseTab.
 ]
 
 { #category : #visiting }
@@ -67,7 +74,12 @@ DLPrinter >> visitPair: aPair [
 
 { #category : #visiting }
 DLPrinter >> visitRest: aCollectionOfPairs [
+	stream cr.
+	self tabulate.
+	aCollectionOfPairs 
+		do: [:each | each accept: self ] 
+		separatedBy: [ stream cr.
+				self tabulate.
+				].
 
-	stream space.
-	aCollectionOfPairs do: [:each | self visitPair: each ] separatedBy: [ stream space ]
 ]

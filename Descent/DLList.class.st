@@ -32,6 +32,11 @@ DLList >> addPair: aPair [
 	pairSequence add: aPair
 ]
 
+{ #category : #accessing }
+DLList >> head [ 
+	^ head
+]
+
 { #category : #initialization }
 DLList >> initialize [
 	
@@ -82,8 +87,10 @@ DLList >> printPrettyOn: aStream [
   aStream << '('.
   head printBodyOn: aStream.
   self restIsNotEmpty ifTrue: [ 
-			aStream cr.
-			pairSequence do: [:each |  each printPrettyOn: aStream ] separatedBy: [ aStream space ] ].
+			aStream lf.
+			pairSequence 
+				do: [:each |  each printPrettyOn: aStream ] 
+				separatedBy: [ aStream space ] ].
   aStream << ')'
   
 ]

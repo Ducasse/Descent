@@ -36,6 +36,12 @@ DLPair >> key: aString [
 	key := aString
 ]
 
+{ #category : #accessing }
+DLPair >> key: aKey value: aValue [ 
+	key := aKey.
+	value := aValue
+]
+
 { #category : #printing }
 DLPair >> printBodyOn: aStream [
 
