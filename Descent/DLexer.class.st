@@ -20,7 +20,7 @@ Class {
 		'sep',
 		'currentChar'
 	],
-	#category : #Descent
+	#category : #'Descent-Parser'
 }
 
 { #category : #accessing }

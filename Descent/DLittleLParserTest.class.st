@@ -4,7 +4,7 @@ This class contains tests of a parser for a little parenthesised language.
 Class {
 	#name : #DLittleLParserTest,
 	#superclass : #TestCase,
-	#category : #Descent
+	#category : #'Descent-Parser'
 }
 
 { #category : #tests }

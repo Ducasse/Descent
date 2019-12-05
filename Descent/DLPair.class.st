@@ -12,12 +12,18 @@ Class {
 		'key',
 		'value'
 	],
-	#category : #Descent
+	#category : #'Descent-DataStructure'
 }
 
 { #category : #'instance creation' }
 DLPair class >> key: aKey value: aValue [ 
 	^ self new key: aKey ; value: aValue; yourself
+]
+
+{ #category : #visit }
+DLPair >> accept: aVisitor [
+
+	aVisitor visitPair: self
 ]
 
 { #category : #accessing }

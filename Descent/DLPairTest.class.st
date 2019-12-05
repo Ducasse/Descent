@@ -1,7 +1,7 @@
 Class {
 	#name : #DLPairTest,
 	#superclass : #TestCase,
-	#category : #Descent
+	#category : #'Descent-DataStructure'
 }
 
 { #category : #tests }

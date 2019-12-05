@@ -90,7 +90,7 @@ Class {
 	#instVars : [
 		'l'
 	],
-	#category : #Descent
+	#category : #'Descent-Parser'
 }
 
 { #category : #parsing }

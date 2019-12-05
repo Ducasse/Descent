@@ -11,8 +11,20 @@ Class {
 		'pairSequence',
 		'head'
 	],
-	#category : #Descent
+	#category : #'Descent-DataStructure'
 }
+
+{ #category : #'instance creation' }
+DLList class >> key: aKeyObject value: aValueObject [ 
+
+	^ self new key: aKeyObject value: aValueObject 
+]
+
+{ #category : #visit }
+DLList >> accept: aVisitor [
+
+	aVisitor visitList: self 
+]
 
 { #category : #initialization }
 DLList >> addPair: aPair [
@@ -74,6 +86,12 @@ DLList >> printPrettyOn: aStream [
 			pairSequence do: [:each |  each printPrettyOn: aStream ] separatedBy: [ aStream space ] ].
   aStream << ')'
   
+]
+
+{ #category : #accessing }
+DLList >> rest [
+
+	^ pairSequence 
 ]
 
 { #category : #initialization }

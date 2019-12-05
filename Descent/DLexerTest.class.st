@@ -1,7 +1,7 @@
 Class {
 	#name : #DLexerTest,
 	#superclass : #TestCase,
-	#category : #Descent
+	#category : #'Descent-Parser'
 }
 
 { #category : #'tests consume' }
