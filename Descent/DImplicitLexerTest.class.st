@@ -1,5 +1,10 @@
+"
+I am a copy of class DLexerTest. This comment is copied from there, and might not be entirely accurate
+
+This class contains tests
+"
 Class {
-	#name : #DLexerTest,
+	#name : #DImplicitLexerTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'l'
@@ -7,16 +12,15 @@ Class {
 	#category : #'Descent-Parser'
 }
 
-{ #category : #tests }
-DLexerTest >> setUp [
+{ #category : #'tests consume' }
+DImplicitLexerTest >> setUp [
+	l := DImplicitStringLexer new.
 	
-	l := DLexer new.
-
 ]
 
 { #category : #'tests consume' }
-DLexerTest >> testConsume [
-
+DImplicitLexerTest >> testConsume [
+	
 	l on: 'abc'.
 	self assert: l currentChar equals: $a.
 	l consume.
@@ -28,7 +32,7 @@ DLexerTest >> testConsume [
 ]
 
 { #category : #tests }
-DLexerTest >> testEmpty [
+DImplicitLexerTest >> testEmpty [
 
 	l on: ''.
 	self assert: l nextToken equals: ''.
@@ -36,7 +40,7 @@ DLexerTest >> testEmpty [
 ]
 
 { #category : #'tests consume' }
-DLexerTest >> testEmptyConsume [
+DImplicitLexerTest >> testEmptyConsume [
 
 	l on: ''.
 	self assert: l currentChar isNil.
@@ -45,8 +49,8 @@ DLexerTest >> testEmptyConsume [
 ]
 
 { #category : #tests }
-DLexerTest >> testOnlySpace [
-
+DImplicitLexerTest >> testOnlySpace [
+	
 	l on: '   	
 		'.
 	self assert: l nextToken equals: ''.
@@ -54,7 +58,7 @@ DLexerTest >> testOnlySpace [
 ]
 
 { #category : #'tests consume' }
-DLexerTest >> testSepConsume [
+DImplicitLexerTest >> testSepConsume [
 
 	l on: '('.
 	self assert: l currentChar equals: $(.
@@ -62,7 +66,7 @@ DLexerTest >> testSepConsume [
 ]
 
 { #category : #tests }
-DLexerTest >> testSimple [ 
+DImplicitLexerTest >> testSimple [ 
 
 	l on: '(title: '.
 	self assert: l nextToken equals: $(.
@@ -73,7 +77,7 @@ DLexerTest >> testSimple [
 ]
 
 { #category : #tests }
-DLexerTest >> testSimple2 [
+DImplicitLexerTest >> testSimple2 [
 
 	l on: '(title: Le lrintemls d''helliconia, read: no, price: 1)'.
 	self assert: l nextToken equals: $(.
@@ -94,7 +98,7 @@ DLexerTest >> testSimple2 [
 ]
 
 { #category : #tests }
-DLexerTest >> testSpaceAndSep [
+DImplicitLexerTest >> testSpaceAndSep [
 
 	l on: '    (    '.
 	self assert: l nextToken equals: $(.
@@ -102,7 +106,7 @@ DLexerTest >> testSpaceAndSep [
 ]
 
 { #category : #tests }
-DLexerTest >> testSpaceAndSep2 [
+DImplicitLexerTest >> testSpaceAndSep2 [
 
 	l on: '    (       )   '.
 	self assert: l nextToken equals: $(.
@@ -111,7 +115,7 @@ DLexerTest >> testSpaceAndSep2 [
 ]
 
 { #category : #'tests consume' }
-DLexerTest >> testSpaceConsume [
+DImplicitLexerTest >> testSpaceConsume [
 
 	l on: '  '.
 	self assert: l currentChar equals: Character space.
