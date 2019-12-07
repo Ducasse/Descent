@@ -36,3 +36,7 @@ Metacello new
   baseline: 'Descent';
   repository: 'github://Ducasse/Descent/'
 ```
+
+## Known strange behavior
+
+Travis reports 2 broken tests but I cannot reproduce them locally. 
