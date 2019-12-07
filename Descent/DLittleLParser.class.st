@@ -8,15 +8,13 @@ A little list description language parser named DLittle.
 Hand written to feel the pain. 
 The idea is to refactor it to get a canonical shape. 
 
-
-
 (author : Aldiss / Brian 
   (serie : helliconia  
-   		(title: Le printemps d'helliconia (read: no)  (style: SF) (price: 1))
-  	 	(title: Helliconia, l'ete, read: no,  style: SF, price: 1)
- 	  	(title: L'hiver d'helliconia, read: no,  style: SF, price: 1))
+   		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
+  	 	(title: Helliconia, l''ete (read: no)  (style: SF) (price: 1))
+ 	  	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1))
   (books:
-    	( title: L'instant de l'eclipse (read: no)  (style: fantaisie) (price: 1))
+    	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))
 
 In yaml 
 	a:b is a dict at:put: 
@@ -44,9 +42,8 @@ Value -> char*
 
 
 Next iteration
-	- handle string or spaces so that we can write ( a : le jour ) and the value should be ""le jour"".
 	- escape character?
-	- better tests for strange characters
+	- better tests for strange characters, a letter can be anything except separator in fact.
 	
 	- Now we have only on sexp like stuff (with nested sexp)
 		(a:b 
@@ -96,7 +93,7 @@ Class {
 { #category : #parsing }
 DLittleLParser >> parse: aString [ 
 
-	l := DLexer new.
+	l := DImplicitStringLexer new.
 	l on: aString.
 	^ self scanPair
 ]

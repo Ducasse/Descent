@@ -25,6 +25,15 @@ Class {
 	#category : #'Descent-Parser'
 }
 
+{ #category : #token }
+DImplicitStringLexer >> allTokens [
+  "Return all the tokens"
+  | tokens |
+  tokens := OrderedCollection new.
+  [ self isNotAtEnd ] whileTrue: [ tokens add: self nextToken ].
+  ^ tokens
+]
+
 { #category : #accessing }
 DImplicitStringLexer >> atEndValue [
 
@@ -45,7 +54,7 @@ DImplicitStringLexer >> currentChar [
 
 { #category : #initialization }
 DImplicitStringLexer >> defaultSeparators [
-	^ { $( . $) . $:}
+	^ { $( . $) . $: }
 ]
 
 { #category : #initialization }
