@@ -83,14 +83,13 @@ DImplicitLexerTest >> testSimple2 [
 	self assert: l nextToken equals: $(.
 	self assert: l nextToken equals: 'title'.
 	self assert: l nextToken equals: $:.
-	self assert: l nextToken equals: 'Le'.
-	self assert: l nextToken equals: 'lrintemls'.
-	self assert: l nextToken equals: 'd''helliconia'.
+	self assert: l nextToken equals: 'Le lrintemls d''helliconia'.
 	self assert: l nextToken equals: $(.
 	self assert: l nextToken equals: 'read'.
 	self assert: l nextToken equals: $:.
 	self assert: l nextToken equals: 'no'.
 	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $(.
 	self assert: l nextToken equals: 'price'.
 	self assert: l nextToken equals: $:.
 	self assert: l nextToken equals: '1'.

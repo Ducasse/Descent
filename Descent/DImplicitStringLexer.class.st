@@ -84,6 +84,12 @@ DImplicitStringLexer >> isCurrentALetter [
 	^ currentChar isAlphaNumeric or: [ currentChar = $' ]
 ]
 
+{ #category : #eating }
+DImplicitStringLexer >> isCurrentSpace [
+
+	^ white includes: currentChar 
+]
+
 { #category : #testing }
 DImplicitStringLexer >> isNotAtEnd [
 
@@ -94,7 +100,7 @@ DImplicitStringLexer >> isNotAtEnd [
 DImplicitStringLexer >> name [
 	| token |
 	token := (String new: 100) writeStream.
-	[ self isCurrentALetter ]
+	[ self isCurrentALetter or: [ self isCurrentSpace ] ]
 		whileTrue: [ token nextPut: currentChar.
 			self consume ].
 	^ token contents
@@ -108,9 +114,9 @@ DImplicitStringLexer >> nextToken [
 	self isAtEnd ifTrue: [ ^ self atEndValue ].
 	[ self isNotAtEnd ]
 		whileTrue: [ 
-		 	"(white includes: currentChar)
+		 	(white includes: currentChar)
 				ifTrue: [ self eatWhitespace ].
-			self isAtEnd ifTrue: [ ^ self atEndValue ].	"
+			self isAtEnd ifTrue: [ ^ self atEndValue ].	
 			gotSep := sep includes: currentChar.
 			gotSep
 				ifTrue: [ | tmp | 
