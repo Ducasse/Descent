@@ -22,6 +22,20 @@ DLittleLParserTest >> testParse [
 ]
 
 { #category : #tests }
+DLittleLParserTest >> testParseComma [
+	| p list |
+	p := DLittleLParser new. 
+	list := p parse: '(author : Aldiss Brian 
+  (serie : helliconia  
+   		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
+  	 	(title: Helliconia, l''ete (read: no)  (style: SF) (price: 1))
+ 	  	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1))
+  (books: individual
+    	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1)))))'.	
+	self assert: list printString equals: '(author : Aldiss Brian (serie : helliconia (title : Le printemps d''helliconia (read : no) (style : SF) (price : 1)) (title : Helliconia, l''ete (read : no) (style : SF) (price : 1)) (title : L''hiver d''helliconia (read : no) (style : SF) (price : 1)) (books : individual (title : L''instant de l''eclipse (read : no) (style : fantaisie) (price : 1)))))'
+]
+
+{ #category : #tests }
 DLittleLParserTest >> testParseFullExample [
 	| p list |
 	p := DLittleLParser new. 
@@ -83,4 +97,12 @@ DLittleLParserTest >> testParseSimplePairWithRestList [
 	self assert: list restIsEmpty not.
 	
 	self assert: list printString equals: '(firstKey : firstValue (secondKey : secondValue) (thirdKey : thirdValue))'
+]
+
+{ #category : #tests }
+DLittleLParserTest >> testParseStrangeCharacters [
+	| p list |
+	p := DLittleLParser new. 
+	list := p parse: '(foo : a superb identifier #t|,~/< >  ?)'.	
+	self assert: list value equals: 'a superb identifier #t|,~/< >  ?'
 ]

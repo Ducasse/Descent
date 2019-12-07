@@ -90,7 +90,15 @@ DImplicitStringLexer >> isAtEnd [
 { #category : #testing }
 DImplicitStringLexer >> isCurrentALetter [ 
 
-	^ currentChar isAlphaNumeric or: [ currentChar = $' ]
+	"^ currentChar isAlphaNumeric or: [ currentChar = $' ]"
+	
+	^ self isCurrentSeparator not
+]
+
+{ #category : #eating }
+DImplicitStringLexer >> isCurrentSeparator [
+
+	^ sep includes: currentChar 
 ]
 
 { #category : #eating }
