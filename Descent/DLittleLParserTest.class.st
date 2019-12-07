@@ -18,8 +18,9 @@ DLittleLParserTest >> testParseFullExample [
  	  	(title: hiver (read: no)  (style: SF) (price: 1))))
   (books : bla
     	( title: eclipse (read: no)  (style: fantaisie) (price: 1))))'.
-	self assert: list prettyPrintString equals: 
-'(author : Aldiss
+	self 
+		assert: list prettyPrintString 
+		equals: '(author : Aldiss
 (serie : helliconia
 (title : Printempts
 (read : no) (style : SF) (price : 1)) (title : Helliconia
