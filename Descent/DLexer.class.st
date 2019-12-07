@@ -43,7 +43,7 @@ DLexer >> currentChar [
 
 { #category : #initialization }
 DLexer >> defaultSeparators [
-	^ { $( . $) . $: . $,}
+	^ { $( . $) . $:}
 ]
 
 { #category : #initialization }
