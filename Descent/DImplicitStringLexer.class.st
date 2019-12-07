@@ -45,7 +45,7 @@ DImplicitStringLexer >> currentChar [
 
 { #category : #initialization }
 DImplicitStringLexer >> defaultSeparators [
-	^ { $( . $) . $: . $,}
+	^ { $( . $) . $:}
 ]
 
 { #category : #initialization }
@@ -108,9 +108,9 @@ DImplicitStringLexer >> nextToken [
 	self isAtEnd ifTrue: [ ^ self atEndValue ].
 	[ self isNotAtEnd ]
 		whileTrue: [ 
-		 	(white includes: currentChar)
+		 	"(white includes: currentChar)
 				ifTrue: [ self eatWhitespace ].
-			self isAtEnd ifTrue: [ ^ self atEndValue ].	
+			self isAtEnd ifTrue: [ ^ self atEndValue ].	"
 			gotSep := sep includes: currentChar.
 			gotSep
 				ifTrue: [ | tmp | 
@@ -118,7 +118,7 @@ DImplicitStringLexer >> nextToken [
 							self consume. 
 							^ tmp.]
 				ifFalse: [ 
-							^ self name.
+							^ self name trimBoth.
 							]
 			]
 	
