@@ -2,7 +2,7 @@
 A little language named DLittle to represent simple data and not be forced to use YAML.
 
 
-Power to lisp like syntax!
+Power to lisp-like syntax!
 
 ```
 (a:b 
