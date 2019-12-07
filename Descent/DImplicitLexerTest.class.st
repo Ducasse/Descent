@@ -63,6 +63,22 @@ DImplicitLexerTest >> testEmptyConsume [
 ]
 
 { #category : #tests }
+DImplicitLexerTest >> testIsCurrentSeparator [
+	
+	l on: 'a'.
+	self assert: l isCurrentSeparator not. 
+	l on: ')'.
+	self assert: l isCurrentSeparator. 
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testIsCurrentSpace [
+
+	l on: ' '.
+	self assert: l isCurrentSpace
+]
+
+{ #category : #tests }
 DImplicitLexerTest >> testNextTokens [
 
 	l on: '(author : Aldiss Brian 
