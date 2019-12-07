@@ -58,6 +58,7 @@ DImplicitLexerTest >> testFull [
  	  	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1))
   (books:
     	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))'.
+	self halt.
 	self assert: l allTokens
 ]
 
