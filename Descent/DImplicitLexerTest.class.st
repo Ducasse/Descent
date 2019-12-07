@@ -18,6 +18,20 @@ DImplicitLexerTest >> setUp [
 	
 ]
 
+{ #category : #tests }
+DImplicitLexerTest >> testAllTokens [
+
+	l on: '(author : Aldiss Brian 
+  (serie : helliconia  
+   		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
+  	 	(title: Helliconia l''ete (read: no)  (style: SF) (price: 1))
+ 	  	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1))
+  (books:
+    	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))'.
+
+	self assert: l allTokens equals:  #($( 'author' $: 'Aldiss Brian' $( 'serie' $: 'helliconia' $( 'title' $: 'Le printemps d''helliconia' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'title' $: 'Helliconia l''ete' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'title' $: 'L''hiver d''helliconia' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'books' $: $( 'title' $: 'L''instant de l''eclipse' $( 'read' $: 'no' $) $( 'style' $: 'fantaisie' $) $( 'price' $: '1' $) $) )
+]
+
 { #category : #'tests consume' }
 DImplicitLexerTest >> testConsume [
 	
@@ -49,17 +63,17 @@ DImplicitLexerTest >> testEmptyConsume [
 ]
 
 { #category : #tests }
-DImplicitLexerTest >> testFull [
+DImplicitLexerTest >> testNextTokens [
 
 	l on: '(author : Aldiss Brian 
   (serie : helliconia  
    		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
-  	 	(title: Helliconia, l''ete (read: no)  (style: SF) (price: 1))
+  	 	(title: Helliconia l''ete (read: no)  (style: SF) (price: 1))
  	  	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1))
   (books:
     	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))'.
-	self halt.
-	self assert: l allTokens
+
+	self assert: (l nextTokens: 92)  equals:  #($( 'author' $: 'Aldiss Brian' $( 'serie' $: 'helliconia' $( 'title' $: 'Le printemps d''helliconia' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'title' $: 'Helliconia l''ete' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'title' $: 'L''hiver d''helliconia' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'books' $: $( 'title' $: 'L''instant de l''eclipse' $( 'read' $: 'no' $) $( 'style' $: 'fantaisie' $) $( 'price' $: '1' $) $) '')
 ]
 
 { #category : #tests }

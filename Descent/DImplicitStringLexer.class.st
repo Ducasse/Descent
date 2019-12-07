@@ -31,7 +31,7 @@ DImplicitStringLexer >> allTokens [
   | tokens |
   tokens := OrderedCollection new.
   [ self isNotAtEnd ] whileTrue: [ tokens add: self nextToken ].
-  ^ tokens
+  ^ tokens asArray
 ]
 
 { #category : #accessing }
@@ -140,6 +140,15 @@ DImplicitStringLexer >> nextToken [
 
 
 
+]
+
+{ #category : #token }
+DImplicitStringLexer >> nextTokens: aNumber [
+  "Return some  tokens"
+  | tokens |
+  tokens := OrderedCollection new.
+  aNumber timesRepeat: [ tokens add: self nextToken ].
+  ^ tokens asArray
 ]
 
 { #category : #initialization }
