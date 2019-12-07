@@ -29,10 +29,10 @@ Hand written to feel the pain.
       
 ## Installation
 
-To install the packages of Enlumineur, go to the Playground (Ctrl+OW) in your Pharo image and execute the following Metacello script (select it and press Do-it button or Ctrl+D):
+To install the packages of DLittle, go to the Playground (Ctrl+OW) in your Pharo image and execute the following Metacello script (select it and press Do-it button or Ctrl+D):
 
 ```Smalltalk
 Metacello new
-  baseline: 'EnlumineurFormatter';
+  baseline: 'Descent';
   repository: 'github://Ducasse/Descent/'
 ```
