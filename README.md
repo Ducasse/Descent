@@ -37,6 +37,16 @@ Metacello new
   repository: 'github://Ducasse/Descent/'
 ```
 
-## Known strange behavior
+## If you want to depend on it
 
-Travis reports 2 broken tests but I cannot reproduce them locally. 
+```
+spec 
+   baseline: 'ContainersBTree' 
+   with: [ spec repository: 'github://Ducasse/Descent/' ].
+```
+
+----
+The best way to predict the future is to do it.
+Talking less doing more. stepharo@netcourrier.com
+
+
