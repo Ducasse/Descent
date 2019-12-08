@@ -1,6 +1,6 @@
 # Descent
 
-[![Build Status](https://travis-ci.org/Ducasse/Descent.svg?branch=master)](https://travis-ci.org/Ducasse/enlumineur)
+[![Build Status](https://travis-ci.com/Ducasse/Descent.svg?branch=master)](https://travis-ci.com/Ducasse/Descent)
 [![Coverage Status](https://coveralls.io/repos/github/Ducasse/Descent/badge.svg?branch=master)](https://coveralls.io/github/Ducasse/Descent?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Ducasse/enlumineur/master/LICENSE)
 [![Pharo version](https://img.shields.io/badge/Pharo-8.0-%23aac9ff.svg)](https://pharo.org/download)
