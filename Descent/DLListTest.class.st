@@ -32,6 +32,7 @@ DLListTest >> testCharLf2 [
 	"this test is special because it embedds a string that contains a lf"
 
 	| buggyButcontainingLF | 
+	self skip.
 	"(String streamContents: [:s | s lf ]) to produce the string buggyButcontainingLF below"
 	buggyButcontainingLF := '
 '.
