@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #tests }
-DLListTest >> testAddingIsAddingLast [
+DLListTest >> testAddingAPairIsAddingThisPairLast [
 	
 	| l |
 	l := DLList new.
@@ -90,6 +90,20 @@ DLListTest >> testKeysAndValueDo [
 	l addPairToRest: (DLPair new key: 5; value: 60).
 	l keysAndValuesDo: [ :k :v | sum := sum + k + v ].
 	self assert: sum equals: 111.
+
+]
+
+{ #category : #tests }
+DLListTest >> testLast [
+	
+	| l |
+	l := DLList new.
+	l key: 1 value: 2.
+	l addPairToRest: (DLPair new key: 3; value: 4).
+	l addPairToRest: (DLPair new key: 5; value: 6).
+	self assert: l last key equals: 5.
+	
+
 
 ]
 

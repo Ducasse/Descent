@@ -76,6 +76,14 @@ DLList >> keysAndValuesDo: aBlock [
 	pairSequence do: [ :p| aBlock value: p key value: p value ] 
 ]
 
+{ #category : #accessing }
+DLList >> last [
+
+	^ self restIsNotEmpty
+		ifTrue: [ pairSequence last ]
+		ifFalse: [ DLPair null ]
+]
+
 { #category : #printing }
 DLList >> prettyPrintString [ 
 

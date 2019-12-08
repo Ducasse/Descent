@@ -25,6 +25,15 @@ DLPairTest >> testCreation2 [
 ]
 
 { #category : #tests }
+DLPairTest >> testNull [
+
+	| p |
+	p := DLPair null.
+	self assert: p key isNil.
+	self assert: p value isNil
+]
+
+{ #category : #tests }
 DLPairTest >> testPrintOn [
 
 	| p |

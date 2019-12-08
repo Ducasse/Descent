@@ -22,6 +22,12 @@ DLPair class >> key: aKey value: aValue [
 	^ self new key: aKey ; value: aValue; yourself
 ]
 
+{ #category : #'instance creation' }
+DLPair class >> null [ 
+
+	^ self new 
+]
+
 { #category : #visit }
 DLPair >> accept: aVisitor [
 
