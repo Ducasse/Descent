@@ -48,14 +48,14 @@ DLittleLParserTest >> testParseFullExample [
     	( title: eclipse (read: no)  (style: fantaisie) (price: 1))))'.
 	self 
 		assert: list prettyPrintString 
-		equals: '(author : Aldiss
-(serie : helliconia
-(title : Printempts
-(read : no) (style : SF) (price : 1)) (title : Helliconia
-(read : no) (style : SF) (price : 1) (title : hiver
-(read : no) (style : SF) (price : 1)))) (books : bla
-(title : eclipse
-(read : no) (style : fantaisie) (price : 1))))'
+		equals: '(author : Aldiss', Character lf asString, 
+'(serie : helliconia', Character lf asString, 
+'(title : Printempts', Character lf asString, 
+'(read : no) (style : SF) (price : 1)) (title : Helliconia', Character lf asString, 
+'(read : no) (style : SF) (price : 1) (title : hiver', Character lf asString, 
+'(read : no) (style : SF) (price : 1)))) (books : bla', Character lf asString, 
+'(title : eclipse', Character lf asString, 
+'(read : no) (style : fantaisie) (price : 1))))'
 ]
 
 { #category : #tests }
