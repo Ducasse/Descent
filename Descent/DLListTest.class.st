@@ -30,8 +30,13 @@ DLListTest >> testCharLf [
 { #category : #tests }
 DLListTest >> testCharLf2 [
 	"this test is special because it embedds a string that contains a lf"
-	self skip.
-	self assert: Character lf asString equals: "(String streamContents: [:s | s lf ])" '
+
+	| buggyButcontainingLF | 
+	"(String streamContents: [:s | s lf ]) to produce the string buggyButcontainingLF below"
+	buggyButcontainingLF := '
+'.
+	self assert: (buggyButcontainingLF at: 1) equals: Character lf.
+	self assert: Character lf asString equals:  '
 '
 ]
 
