@@ -26,8 +26,8 @@ DLList >> accept: aVisitor [
 	aVisitor visitList: self 
 ]
 
-{ #category : #initialization }
-DLList >> addPair: aPair [
+{ #category : #rest }
+DLList >> addPairToRest: aPair [
 
 	pairSequence add: aPair
 ]
@@ -101,7 +101,7 @@ DLList >> rest [
 	^ pairSequence 
 ]
 
-{ #category : #initialization }
+{ #category : #rest }
 DLList >> restDo: aBlock [ 
 	
 	pairSequence do: aBlock

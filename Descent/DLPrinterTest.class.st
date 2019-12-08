@@ -8,8 +8,8 @@ Class {
 DLPrinterTest >> testPrinterMorePair [
 	| l |
 	l := DLList key: 'author' value: 'Bob'.
-	l addPair: ((DLList key: 'serie' value: 'Wargames') addPair: (DLPair key: 'title' value: 'JolyJumper')).
-	l addPair: (DLPair key: 'serie'  value: 'Foobar').
+	l addPairToRest: ((DLList key: 'serie' value: 'Wargames') addPairToRest: (DLPair key: 'title' value: 'JolyJumper')).
+	l addPairToRest: (DLPair key: 'serie'  value: 'Foobar').
 	self 
 		assert: (DLPrinter new print: l)
 		equals:
@@ -30,8 +30,8 @@ DLPrinterTest >> testPrinterSimplePair [
 DLPrinterTest >> testPrinterTwoRealSubList [
 	| l |
 	l := DLList key: 'author' value: 'Bob'.
-	l addPair: ((DLList key: 'serie' value: 'Wargames') addPair: (DLList key: 'title' value: 'JolyJumper')).
-	l addPair: ((DLList key: 'serie'  value: 'Foobar') addPair: (DLList key: 'title' value: 'Foobar attacks')).
+	l addPairToRest: ((DLList key: 'serie' value: 'Wargames') addPairToRest: (DLList key: 'title' value: 'JolyJumper')).
+	l addPairToRest: ((DLList key: 'serie'  value: 'Foobar') addPairToRest: (DLList key: 'title' value: 'Foobar attacks')).
 	self 
 		assert: (DLPrinter new print: l)
 		equals: 
@@ -46,8 +46,8 @@ DLPrinterTest >> testPrinterTwoRealSubList [
 DLPrinterTest >> testPrinterTwoSubList [
 	| l |
 	l := DLList key: 'author' value: 'Bob'.
-	l addPair: ((DLList key: 'serie' value: 'Wargames') addPair: (DLPair key: 'title' value: 'JolyJumper')).
-	l addPair: ((DLList key: 'serie'  value: 'Foobar') addPair: (DLPair key: 'title' value: 'Foobar attacks')).
+	l addPairToRest: ((DLList key: 'serie' value: 'Wargames') addPairToRest: (DLPair key: 'title' value: 'JolyJumper')).
+	l addPairToRest: ((DLList key: 'serie'  value: 'Foobar') addPairToRest: (DLPair key: 'title' value: 'Foobar attacks')).
 	self 
 		assert: (DLPrinter new print: l)
 		equals:

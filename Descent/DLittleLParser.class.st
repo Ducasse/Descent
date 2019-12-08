@@ -121,7 +121,7 @@ DLittleLParser >> scanPairBody [
 				
 				[ isOpening := l nextToken.
 				isOpening = $( ] whileTrue: 
-						[ pair addPair: self scanPairBody ].	
+						[ pair addPairToRest: self scanPairBody ].	
 				isOpening = $) ifFalse: [ self error: 'Missing )' ] ].
 				^ pair  
 			

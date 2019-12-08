@@ -4,6 +4,8 @@ I represent a pair: a:b and c:d in the following
 
 ( a : b )
 ( a : b ( c : d))
+
+The question could be if it should have the same query method than DLList related to rest. 
 "
 Class {
 	#name : #DLPair,
