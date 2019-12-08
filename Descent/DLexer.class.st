@@ -1,15 +1,15 @@
 "
 I'm a simple lexer.
-
-I recogniseI 
+I recognise
 	names: list of characters letter and number and '
-	separators: one character separator. 
+	separators: one character separator taken from a list by default { ): 
 	
 Whitespaces and separators can be customised using setters.
 
 Subclasses may change the definition of names by redefining isCurrentALetter.
 
-Next iteration should manage an escape character, and explicit list ""il fait beau, ou pas"" to avoid to use escape char
+Next iteration should manage an escape character, and explicit list ""il fait beau, ou pas"" to avoid to use escape char.
+See DImplicitStringLexer for this.
 "
 Class {
 	#name : #DLexer,
