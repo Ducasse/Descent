@@ -110,7 +110,6 @@ DLListTest >> testPrintPrettyOn [
 	l key: 1 value: 2.
 	l addPairToRest: (DLPair new key: 3; value: 4).
 	l addPairToRest: (DLPair new key: 5; value: 6).
-	self assert: l prettyPrintString equals:'(1 : 2
-(3 : 4) (5 : 6))' 
+	self assert: l prettyPrintString equals:'(1 : 2', Character lf asString,'(3 : 4) (5 : 6))' 
 	"Pay attention that the string should contain lf and not cr"
 ]
