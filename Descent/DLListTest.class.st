@@ -80,7 +80,7 @@ DLListTest >> testDo [
 ]
 
 { #category : #tests }
-DLListTest >> testKeysAndValueDo [
+DLListTest >> testKeysAndValuesDo [
 	
 	| l sum |
 	sum := 0. 
@@ -104,6 +104,20 @@ DLListTest >> testLast [
 	self assert: l last key equals: 5.
 	
 
+
+]
+
+{ #category : #tests }
+DLListTest >> testPairAtKeyIfAbsent [
+	
+	| l |
+	l := DLList new.
+	l key: 1 value: 2.
+	l addPairToRest: (DLPair new key: 3; value: 4).
+	l addPairToRest: (DLPair new key: 5; value: 666).
+	l addPairToRest: (DLPair new key: 7; value: 8).
+	l addPairToRest: (DLPair new key: 5; value: 6).
+	self assert: (l pairAtKey: 5) value equals: 666
 
 ]
 
@@ -168,6 +182,20 @@ DLListTest >> testPrintPrettyOn [
 	l addPairToRest: (DLPair new key: 5; value: 6).
 	self assert: l prettyPrintString equals:'(1 : 2', Character lf asString,'(3 : 4) (5 : 6))' 
 	"Pay attention that the string should contain lf and not cr"
+]
+
+{ #category : #tests }
+DLListTest >> testRemoveFromRest [
+	
+	| l sum p |
+	sum := 0. 
+	l := DLList key: 1 value: 2.
+	p := (DLPair new key: 5; value: 60).
+	l addPairToRest: (DLPair new key: 3; value: 40).
+	l addPairToRest: p.
+	l removeFromRest: p. 
+	self assert: l rest size equals: 1
+
 ]
 
 { #category : #tests }

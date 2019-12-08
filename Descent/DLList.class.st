@@ -84,6 +84,18 @@ DLList >> last [
 		ifFalse: [ DLPair null ]
 ]
 
+{ #category : #adding }
+DLList >> pairAtKey: aKey [
+	"Return the pair with the key aKey, if none raise a key not found error"
+	^ pairSequence detect: [ :p | p key = aKey ] ifNone: [ KeyNotFound signal ]
+]
+
+{ #category : #adding }
+DLList >> pairAtKey: aKey ifAbsent: aBlock [
+
+	^ pairSequence detect: [ :p | p key = aKey ] ifNone: aBlock
+]
+
 { #category : #printing }
 DLList >> prettyPrintString [ 
 
@@ -117,6 +129,18 @@ DLList >> printPrettyOn: aStream [
 				separatedBy: [ aStream space ] ].
   aStream << ')'
   
+]
+
+{ #category : #adding }
+DLList >> removeFromRest: aPair [
+
+	pairSequence remove: aPair ifAbsent: nil
+]
+
+{ #category : #adding }
+DLList >> removeFromRest: aPair ifAbsent: aBlock [
+
+	pairSequence remove: aPair ifAbsent: aBlock
 ]
 
 { #category : #accessing }
