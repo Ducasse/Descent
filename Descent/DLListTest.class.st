@@ -66,6 +66,34 @@ DLListTest >> testCreationSimple [
 ]
 
 { #category : #tests }
+DLListTest >> testDo [
+	
+	| l sum |
+	sum := 0. 
+	l := DLList new.
+	l key: 1 value: 2.
+	l addPairToRest: (DLPair new key: 3; value: 40).
+	l addPairToRest: (DLPair new key: 5; value: 60).
+	l do: [ :p | sum := sum + p value ].
+	self assert: sum equals: 102.
+
+]
+
+{ #category : #tests }
+DLListTest >> testKeysAndValueDo [
+	
+	| l sum |
+	sum := 0. 
+	l := DLList new.
+	l key: 1 value: 2.
+	l addPairToRest: (DLPair new key: 3; value: 40).
+	l addPairToRest: (DLPair new key: 5; value: 60).
+	l keysAndValuesDo: [ :k :v | sum := sum + k + v ].
+	self assert: sum equals: 111.
+
+]
+
+{ #category : #tests }
 DLListTest >> testPolymorphicCreationMessage [
 	
 	| l |
@@ -126,4 +154,32 @@ DLListTest >> testPrintPrettyOn [
 	l addPairToRest: (DLPair new key: 5; value: 6).
 	self assert: l prettyPrintString equals:'(1 : 2', Character lf asString,'(3 : 4) (5 : 6))' 
 	"Pay attention that the string should contain lf and not cr"
+]
+
+{ #category : #tests }
+DLListTest >> testRestDo [
+	
+	| l sum |
+	sum := 0. 
+	l := DLList new.
+	l key: 1 value: 2.
+	l addPairToRest: (DLPair new key: 3; value: 40).
+	l addPairToRest: (DLPair new key: 5; value: 60).
+	l restDo: [ :p | sum := sum + p value ].
+	self assert: sum equals: 100.
+
+]
+
+{ #category : #tests }
+DLListTest >> testRestDo2 [
+	
+	| l sum |
+	sum := 0. 
+	l := DLList new.
+	l key: 1 value: 2.
+	l addPairToRest: (DLPair new key: 3; value: 40).
+	l addPairToRest: (DLPair new key: 5; value: 60).
+	l restDo: [ :p | sum := sum + p key ].
+	self assert: sum equals: 8.
+
 ]

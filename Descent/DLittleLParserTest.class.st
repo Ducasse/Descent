@@ -22,6 +22,19 @@ DLittleLParserTest >> testParse [
 ]
 
 { #category : #tests }
+DLittleLParserTest >> testParseClassSide [
+	| list |
+	list := DLittleLParser parse: '(author : Aldiss Brian 
+  (serie : helliconia  
+   		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
+  	 	(title: Helliconia l''ete (read: no)  (style: SF) (price: 1))
+ 	  	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1))
+  (books: individual
+    	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1)))))'.	
+	self assert: list printString equals: '(author : Aldiss Brian (serie : helliconia (title : Le printemps d''helliconia (read : no) (style : SF) (price : 1)) (title : Helliconia l''ete (read : no) (style : SF) (price : 1)) (title : L''hiver d''helliconia (read : no) (style : SF) (price : 1)) (books : individual (title : L''instant de l''eclipse (read : no) (style : fantaisie) (price : 1)))))'
+]
+
+{ #category : #tests }
 DLittleLParserTest >> testParseComma [
 	| p list |
 	p := DLittleLParser new. 

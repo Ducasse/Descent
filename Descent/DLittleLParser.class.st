@@ -91,6 +91,12 @@ Class {
 }
 
 { #category : #parsing }
+DLittleLParser class >> parse: aString [ 
+	
+	^ self new parse: aString
+]
+
+{ #category : #parsing }
 DLittleLParser >> parse: aString [ 
 
 	l := DImplicitStringLexer new.

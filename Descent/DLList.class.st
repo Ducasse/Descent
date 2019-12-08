@@ -26,10 +26,18 @@ DLList >> accept: aVisitor [
 	aVisitor visitList: self 
 ]
 
-{ #category : #rest }
+{ #category : #adding }
 DLList >> addPairToRest: aPair [
 
 	pairSequence add: aPair
+]
+
+{ #category : #iterating }
+DLList >> do: aBlock [ 
+	"Perform a block on each elements."
+	
+	aBlock value: head.
+	pairSequence do: aBlock
 ]
 
 { #category : #accessing }
@@ -39,8 +47,8 @@ DLList >> head [
 
 { #category : #initialization }
 DLList >> initialize [
-	
-	
+	super initialize.
+	head := DLPair new.
 	pairSequence := OrderedCollection new
 ]
 
@@ -54,10 +62,18 @@ DLList >> key: anObject [
 	head key: anObject
 ]
 
-{ #category : #'instance creation' }
+{ #category : #initialization }
 DLList >> key: aKeyObject value: aValueObject [ 
 	
-	head := DLPair new key: aKeyObject ; value: aValueObject
+	head key: aKeyObject ; value: aValueObject
+]
+
+{ #category : #iterating }
+DLList >> keysAndValuesDo: aBlock [ 
+	"Perform a block with a key and value on each elements."
+	
+	aBlock value: head key value: head value.
+	pairSequence do: [ :p| aBlock value: p key value: p value ] 
 ]
 
 { #category : #printing }
@@ -101,8 +117,9 @@ DLList >> rest [
 	^ pairSequence 
 ]
 
-{ #category : #rest }
+{ #category : #iterating }
 DLList >> restDo: aBlock [ 
+	"Perform a block on the rest of the receiver."
 	
 	pairSequence do: aBlock
 ]
