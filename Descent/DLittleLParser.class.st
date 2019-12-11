@@ -8,7 +8,7 @@ A little list description language parser named DLittle.
 Hand written to feel the pain. 
 The idea is to refactor it to get a canonical shape. 
 
-(author : Aldiss / Brian 
+(author : Aldiss, Brian 
   (serie : helliconia  
    		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
   	 	(title: Helliconia, l''ete (read: no)  (style: SF) (price: 1))
