@@ -39,11 +39,9 @@ Following ->   ('(' Pair ')') *
 Key -> char*
 Value -> char*
 
-
-
-Next iteration
-	- escape character?
-	- better tests for strange characters, a letter can be anything except separator in fact.
+To do Next iteration
+	- escape character \?
+	- and/or using "" for a string when eveything is escaped. ""
 	
 	- Now we have only on sexp like stuff (with nested sexp)
 		(a:b 
