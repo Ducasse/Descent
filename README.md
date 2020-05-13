@@ -1,4 +1,4 @@
-# Descent
+# DLittle 
 
 [![Build Status](https://travis-ci.com/Ducasse/Descent.svg?branch=master)](https://travis-ci.com/Ducasse/Descent)
 [![Coverage Status](https://coveralls.io/repos/github/Ducasse/Descent/badge.svg?branch=master)](https://coveralls.io/github/Ducasse/Descent?branch=master)
