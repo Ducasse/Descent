@@ -63,6 +63,15 @@ DImplicitLexerTest >> testEmptyConsume [
 ]
 
 { #category : #tests }
+DImplicitLexerTest >> testEscape [
+
+	l on: '(title\(Titre\): '.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title(Titre)'.
+	self assert: l nextToken equals: $:
+]
+
+{ #category : #tests }
 DImplicitLexerTest >> testIsCurrentSeparator [
 	
 	l on: 'a'.
