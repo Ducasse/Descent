@@ -20,6 +20,7 @@ Class {
 		'stream',
 		'white',
 		'sep',
+		'escape',
 		'currentChar'
 	],
 	#category : #'Descent-Parser'
@@ -53,6 +54,11 @@ DImplicitStringLexer >> currentChar [
 ]
 
 { #category : #initialization }
+DImplicitStringLexer >> defaultEscapeChars [
+	^ { $\ }
+]
+
+{ #category : #initialization }
 DImplicitStringLexer >> defaultSeparators [
 	^ { $( . $) . $: }
 ]
@@ -75,10 +81,21 @@ DImplicitStringLexer >> eatWhitespace [
 	[ white includes: currentChar ] whileTrue: [ self consume ]
 ]
 
+{ #category : #accessing }
+DImplicitStringLexer >> escape [
+	^ escape
+]
+
+{ #category : #accessing }
+DImplicitStringLexer >> escape: anObject [
+	escape := anObject
+]
+
 { #category : #initialization }
 DImplicitStringLexer >> initialize [ 
 	white := self defaultWhitespaces. 
-	sep := self defaultSeparators 
+	sep := self defaultSeparators.
+	escape := self defaultEscapeChars 
 ]
 
 { #category : #testing }
@@ -93,6 +110,12 @@ DImplicitStringLexer >> isCurrentALetter [
 	"^ currentChar isAlphaNumeric or: [ currentChar = $' ]"
 	
 	^ self isCurrentSeparator not
+]
+
+{ #category : #eating }
+DImplicitStringLexer >> isCurrentEscapeChar [
+
+	^ escape includes: currentChar 
 ]
 
 { #category : #eating }
@@ -113,13 +136,19 @@ DImplicitStringLexer >> isNotAtEnd [
 	^ currentChar isNotNil
 ]
 
-{ #category : #token }
+{ #category : #eating }
 DImplicitStringLexer >> name [
 	| token |
 	token := (String new: 100) writeStream.
-	[ self isCurrentALetter or: [ self isCurrentSpace ] ]
-		whileTrue: [ token nextPut: currentChar.
+	
+	[ self isCurrentALetter or: [ self isCurrentSpace or: [ self isCurrentEscapeChar ]]  ]
+		whileTrue: [ 
+			self isCurrentEscapeChar ifTrue: [ 
+				self isAtEnd ifTrue: [ self error: 'No character to be escaped' ].
+				self consume ].
+			token nextPut: currentChar.
 			self consume ].
+		
 	^ token contents
 ]
 
