@@ -72,6 +72,42 @@ DLittleLParserTest >> testParseFullExample [
 ]
 
 { #category : #tests }
+DLittleLParserTest >> testParseMultiple [
+	| p pair |
+	p := DLittleLParser new. 
+	pair := p parseMultiple: '(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
+  	 	(title: Helliconia l''ete (read: no)  (style: SF) (price: 1))'.	
+	self assert: pair size equals: 2.
+	
+	self assert: pair first printString equals: '(title : Le printemps d''helliconia (read : no) (style : SF) (price : 1))'.
+	self assert: pair second printString equals: '(title : Helliconia l''ete (read : no) (style : SF) (price : 1))'.
+]
+
+{ #category : #tests }
+DLittleLParserTest >> testParseMultipleEmptyStr [
+	| p pair |
+	p := DLittleLParser new. 
+	pair := p parseMultiple: ''.	
+	self assert: pair size equals: 0.
+]
+
+{ #category : #tests }
+DLittleLParserTest >> testParseMultipleSimplePair [
+	| p pair |
+	p := DLittleLParser new. 
+	pair := p parseMultiple: '(read: 1) (price: 4)'.	
+	self assert: pair size equals: 2.
+	
+	self assert: pair first key equals: 'read'.
+	self assert: pair first value equals: '1'.
+	self assert: pair first printString equals: '(read : 1)'.
+	
+	self assert: pair second key equals: 'price'.
+	self assert: pair second value equals: '4'.
+	self assert: pair second printString equals: '(price : 4)'
+]
+
+{ #category : #tests }
 DLittleLParserTest >> testParseSimplePair [
 	| p pair |
 	p := DLittleLParser new. 
@@ -113,9 +149,19 @@ DLittleLParserTest >> testParseSimplePairWithRestList [
 ]
 
 { #category : #tests }
+DLittleLParserTest >> testParseSimplePairWithoutValue [
+	| p pair |
+	p := DLittleLParser new. 
+	pair := p parse: '(read: (details: none))'.
+	self assert: pair key equals: 'read'.
+	self assert: pair value equals: nil.
+	self assert: pair printString equals: '(read : nil (details : none))'
+]
+
+{ #category : #tests }
 DLittleLParserTest >> testParseStrangeCharacters [
 	| p list |
 	p := DLittleLParser new. 
-	list := p parse: '(foo : a superb identifier #t|,~/< >  ?)'.	
-	self assert: list value equals: 'a superb identifier #t|,~/< >  ?'
+	list := p parse: '(foo : a superb identifier t|,~/< >  ?)'.	
+	self assert: list value equals: 'a superb identifier t|,~/< >  ?'
 ]
