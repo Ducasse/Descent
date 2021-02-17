@@ -72,6 +72,35 @@ DImplicitLexerTest >> testEscape [
 ]
 
 { #category : #tests }
+DImplicitLexerTest >> testEscape2 [
+
+	l on: '(title : Les \vents du changement (read : no) (style : SF) (price : 2.39))'').'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals:  'Les vents du changement' 
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testEscapeOnLast [
+
+	l on: '(ve \))'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals:  've )'. 
+	self assert: l nextToken equals: $).
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testEscapeOnWhiteSpace [
+
+	l on: '(title : Les\ vents du changement \(read \: no\) (style : SF) (price : 2.39))'').'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals:  'Les vents du changement (read : no)' 
+]
+
+{ #category : #tests }
 DImplicitLexerTest >> testIsCurrentSeparator [
 	
 	l on: 'a'.
