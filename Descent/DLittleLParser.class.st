@@ -103,14 +103,13 @@ DLittleLParser >> parse: aString [
 ]
 
 { #category : #parsing }
-DLittleLParser >> parseMultiple: aString [ 
+DLittleLParser >> parseMultiple: aString [
 	| result |
 	result := OrderedCollection new.
 	l := DImplicitStringLexer new.
 	l on: aString.
-	[[true] whileTrue: [ result add: self scanPair ]]
-		 on: Error
-			do: [^result]
+	[l isNotAtEnd ] whileTrue: [ result add: self scanPair ].
+	^result
 ]
 
 { #category : #parsing }
@@ -137,7 +136,7 @@ DLittleLParser >> scanPairBody [
 				skipValue ifFalse:
 				[ value := isOpening ].
 				pair := DLList new key: key value: value.
-			
+				
 				[skipValue or: [ isOpening := l nextToken.
 				isOpening = $( ]] whileTrue: 
 						[ pair addPairToRest: self scanPairBody.

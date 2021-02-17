@@ -77,10 +77,9 @@ DImplicitStringLexer >> eatComment [
 	[ self isCurrentCommentChar or: self isAtEnd ] whileFalse: [ self consume ].
 	self isCurrentCommentChar
 		ifTrue: [ self consume ].
-		
+
 	self isCurrentCommentChar
 		ifTrue: [ self eatComment ].
-		
 ]
 
 { #category : #eating }
@@ -97,13 +96,13 @@ DImplicitStringLexer >> eatWhitespace [
 
 { #category : #eating }
 DImplicitStringLexer >> eatWhitespacesAndComments [
+
 	self isCurrentCommentChar
 		ifTrue: [ self eatComment ].
 	self isCurrentSpace
 		ifTrue: [ self eatWhitespace ].
 	(self isCurrentCommentChar or: self isCurrentSpace)
 		ifTrue: [ self eatWhitespacesAndComments ]
-		
 ]
 
 { #category : #accessing }
@@ -174,12 +173,14 @@ DImplicitStringLexer >> name [
 	
 	[ self isCurrentALetter or: [ self isCurrentSpace or: [ self isCurrentEscapeChar ]]  ]
 		whileTrue: [ 
-			self isCurrentEscapeChar ifTrue: [ 
-				self isAtEnd ifTrue: [ self error: 'No character to be escaped' ].
-				self consume ].
-			self isCurrentCommentChar 
-				ifTrue: [ self eatComment ].
-			
+			self isCurrentEscapeChar 
+				ifTrue: [ 
+					self isAtEnd ifTrue: [ self error: 'No character to be escaped' ].
+					self consume ]
+				ifFalse: [ 				
+					self isCurrentCommentChar 
+					ifTrue: [ self eatComment ] ].
+							
 			token nextPut: currentChar.
 			self consume ].
 		

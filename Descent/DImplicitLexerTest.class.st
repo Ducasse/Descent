@@ -32,6 +32,85 @@ DImplicitLexerTest >> testAllTokens [
 	self assert: l allTokens equals:  #($( 'author' $: 'Aldiss Brian' $( 'serie' $: 'helliconia' $( 'title' $: 'Le printemps d''helliconia' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'title' $: 'Helliconia l''ete' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'title' $: 'L''hiver d''helliconia' $( 'read' $: 'no' $) $( 'style' $: 'SF' $) $( 'price' $: '1' $) $) $( 'books' $: $( 'title' $: 'L''instant de l''eclipse' $( 'read' $: 'no' $) $( 'style' $: 'fantaisie' $) $( 'price' $: '1' $) $) )
 ]
 
+{ #category : #tests }
+DImplicitLexerTest >> testCommentAtBeginningAndEnd [
+
+	l on: '#this is a starting comment#
+	(title: Le lrintemls d''helliconia
+	 (read: no) (price: 1))
+	#this is an ending comment#'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'Le lrintemls d''helliconia'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'read'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'no'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'price'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: '1'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: ''.
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testCommentSimple [
+
+	l on: '(title: Le lrintemls d''helliconia
+	#this is a comment#
+	 (read: no) (price: 1))'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'Le lrintemls d''helliconia'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'read'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'no'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'price'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: '1'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $).
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testCommentWithEscapeCharacter [
+
+	l on: '(title: 
+	#this is a first comment with \ inside# 
+	Le lrintemls d''helliconia
+	(read: no) 
+	(test: \# this is not a comment \#) 
+	(price: 1))'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'Le lrintemls d''helliconia'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'read'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'no'.
+	self assert: l nextToken equals: $).	
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'test'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: '# this is not a comment #'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'price'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: '1'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $).
+]
+
 { #category : #'tests consume' }
 DImplicitLexerTest >> testConsume [
 	
@@ -98,6 +177,20 @@ DImplicitLexerTest >> testEscapeOnWhiteSpace [
 	self assert: l nextToken equals: 'title'.
 	self assert: l nextToken equals: $:.
 	self assert: l nextToken equals:  'Les vents du changement (read : no)' 
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testIsCurrentCommentChar [
+
+	l on: '#'.
+	self assert: l isCurrentCommentChar
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testIsCurrentEscapeChar [
+
+	l on: '\'.
+	self assert: l isCurrentEscapeChar
 ]
 
 { #category : #tests }
@@ -205,4 +298,26 @@ DImplicitLexerTest >> testSpaceConsume [
 	self assert: l currentChar equals: Character space.
 	l consume. 
 	self assert: l isAtEnd
+]
+
+{ #category : #tests }
+DImplicitLexerTest >> testSuccessiveComments [
+
+	l on: '(title: #this is a first comment##this is a second comment#Le lrintemls d''helliconia
+	 (read: no) #this is a third comment##this is a fourth comment#(price: 1))'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'title'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'Le lrintemls d''helliconia'.
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'read'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: 'no'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $(.
+	self assert: l nextToken equals: 'price'.
+	self assert: l nextToken equals: $:.
+	self assert: l nextToken equals: '1'.
+	self assert: l nextToken equals: $).
+	self assert: l nextToken equals: $).
 ]

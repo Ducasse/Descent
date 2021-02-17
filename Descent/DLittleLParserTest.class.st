@@ -78,7 +78,7 @@ DLittleLParserTest >> testParseMultiple [
 	pair := p parseMultiple: '(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
   	 	(title: Helliconia l''ete (read: no)  (style: SF) (price: 1))'.	
 	self assert: pair size equals: 2.
-	
+
 	self assert: pair first printString equals: '(title : Le printemps d''helliconia (read : no) (style : SF) (price : 1))'.
 	self assert: pair second printString equals: '(title : Helliconia l''ete (read : no) (style : SF) (price : 1))'.
 ]
@@ -97,11 +97,11 @@ DLittleLParserTest >> testParseMultipleSimplePair [
 	p := DLittleLParser new. 
 	pair := p parseMultiple: '(read: 1) (price: 4)'.	
 	self assert: pair size equals: 2.
-	
+
 	self assert: pair first key equals: 'read'.
 	self assert: pair first value equals: '1'.
 	self assert: pair first printString equals: '(read : 1)'.
-	
+
 	self assert: pair second key equals: 'price'.
 	self assert: pair second value equals: '4'.
 	self assert: pair second printString equals: '(price : 4)'
