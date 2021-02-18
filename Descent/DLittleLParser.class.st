@@ -103,6 +103,17 @@ DLittleLParser >> parse: aString [
 ]
 
 { #category : #parsing }
+DLittleLParser >> parseMultiple: aString [ 
+	| result |
+	result := OrderedCollection new.
+	l := DImplicitStringLexer new.
+	l on: aString.
+	[ l isAtEnd ] whileFalse: [ result add: self scanPair ].
+	^ result
+		
+]
+
+{ #category : #parsing }
 DLittleLParser >> scanPair [
 	| pair |
 	l nextToken = $(
@@ -114,19 +125,22 @@ DLittleLParser >> scanPair [
 
 { #category : #parsing }
 DLittleLParser >> scanPairBody [
-	| key value sep pair isOpening |
+	| key value skipValue sep pair isOpening |
 	key := l nextToken.
 	sep := l nextToken.
 	sep = $:
 		ifFalse: [ self error: 'Missing :' ]
 		ifTrue: [ 
-				value := l nextToken.
+				"skipValue is used to permit to write (key: (subKey1: subValue1)..) without value"
+				isOpening := l nextToken.
+				skipValue := isOpening = $(.
+				skipValue ifFalse: [ value := isOpening ].
 				pair := DLList new key: key value: value.
-				
-				[ isOpening := l nextToken.
-				isOpening = $( ] whileTrue: 
-						[ pair addPairToRest: self scanPairBody ].	
+			
+				[ skipValue or: [ isOpening := l nextToken.
+					isOpening = $( ]] whileTrue: 
+						[ pair addPairToRest: self scanPairBody.
+						skipValue := false ].	
 				isOpening = $) ifFalse: [ self error: 'Missing )' ] ].
 				^ pair  
-			
 ]
