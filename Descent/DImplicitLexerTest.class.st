@@ -13,9 +13,15 @@ Class {
 }
 
 { #category : #'tests consume' }
+DImplicitLexerTest >> lexer [
+
+	^ DImplicitStringLexer new
+]
+
+{ #category : #'tests consume' }
 DImplicitLexerTest >> setUp [
-	l := DImplicitStringLexer new.
-	
+
+	l := self lexer
 ]
 
 { #category : #tests }
@@ -62,7 +68,7 @@ DImplicitLexerTest >> testEmptyConsume [
 	
 ]
 
-{ #category : #tests }
+{ #category : #'tests escape' }
 DImplicitLexerTest >> testEscape [
 
 	l on: '(title\(Titre\): '.
@@ -71,7 +77,7 @@ DImplicitLexerTest >> testEscape [
 	self assert: l nextToken equals: $:
 ]
 
-{ #category : #tests }
+{ #category : #'tests escape' }
 DImplicitLexerTest >> testEscape2 [
 
 	l on: '(title : Les \vents du changement (read : no) (style : SF) (price : 2.39))'').'.
@@ -81,7 +87,7 @@ DImplicitLexerTest >> testEscape2 [
 	self assert: l nextToken equals:  'Les vents du changement' 
 ]
 
-{ #category : #tests }
+{ #category : #'tests escape' }
 DImplicitLexerTest >> testEscapeOnLast [
 
 	l on: '(ve \))'.
@@ -90,7 +96,7 @@ DImplicitLexerTest >> testEscapeOnLast [
 	self assert: l nextToken equals: $).
 ]
 
-{ #category : #tests }
+{ #category : #'tests escape' }
 DImplicitLexerTest >> testEscapeOnWhiteSpace [
 
 	l on: '(title : Les\ vents du changement \(read \: no\) (style : SF) (price : 2.39))'').'.

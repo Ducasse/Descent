@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'l'
 	],
-	#category : #'Descent-Parser'
+	#category : #'Descent-Unused'
 }
 
 { #category : #tests }

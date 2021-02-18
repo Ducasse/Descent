@@ -1,17 +1,13 @@
 "
-I am a copy of class DLexer. This comment is copied from there, and might not be entirely accurate
+I'm a simple lexer. I'm used by the DLitlleLParser.
 
-I'm a simple lexer.
+I recognise
+	- names: list of characters letter and number and '
+	- separators: one character separator. 
+	- escape char backlash
 
-I recogniseI 
-	names: list of characters letter and number and '
-	separators: one character separator. 
-	
 Whitespaces and separators can be customised using setters.
-
 Subclasses may change the definition of names by redefining isCurrentALetter.
-
-Next iteration should manage an escape character, and explicit list ""il fait beau, ou pas"" to avoid to use escape char
 "
 Class {
 	#name : #DImplicitStringLexer,
@@ -86,11 +82,6 @@ DImplicitStringLexer >> escape [
 	^ escape
 ]
 
-{ #category : #accessing }
-DImplicitStringLexer >> escape: anObject [
-	escape := anObject
-]
-
 { #category : #initialization }
 DImplicitStringLexer >> initialize [ 
 	white := self defaultWhitespaces. 
@@ -110,6 +101,12 @@ DImplicitStringLexer >> isCurrentALetter [
 	"^ currentChar isAlphaNumeric or: [ currentChar = $' ]"
 	
 	^ self isCurrentSeparator not
+]
+
+{ #category : #testing }
+DImplicitStringLexer >> isCurrentCommentChar [
+
+	^ currentChar = $#
 ]
 
 { #category : #eating }
@@ -136,7 +133,7 @@ DImplicitStringLexer >> isNotAtEnd [
 	^ currentChar isNotNil
 ]
 
-{ #category : #eating }
+{ #category : #accessing }
 DImplicitStringLexer >> name [
 	| token |
 	token := (String new: 100) writeStream.
@@ -146,6 +143,9 @@ DImplicitStringLexer >> name [
 			self isCurrentEscapeChar ifTrue: [ 
 				self isAtEnd ifTrue: [ self error: 'No character to be escaped' ].
 				self consume ].
+			self isCurrentCommentChar 
+				ifTrue: [ self eatComment ].
+			
 			token nextPut: currentChar.
 			self consume ].
 		
