@@ -41,7 +41,7 @@ Metacello new
 
 ```
 spec 
-   baseline: 'ContainersBTree' 
+   baseline: 'Descent' 
    with: [ spec repository: 'github://Ducasse/Descent/' ].
 ```
 
