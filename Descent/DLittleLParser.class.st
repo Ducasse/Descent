@@ -1,13 +1,17 @@
 "
 A little list description language parser named DLittle.
 
+
+```
 (a:b 
 	(c:d (e:f) (g:h))
 	(z:k (r:t) (p:q)))
+```
 
 Hand written to feel the pain. 
 The idea is to refactor it to get a canonical shape. 
 
+```
 (author : Aldiss, Brian 
   (serie : helliconia  
    		(title: Le printemps d''helliconia (read: no)  (style: SF) (price: 1))
@@ -15,6 +19,7 @@ The idea is to refactor it to get a canonical shape.
  	  	(title: L''hiver d''helliconia (read: no)  (style: SF) (price: 1)))
   (books : default
     	( title: L''instant de l''eclipse (read: no)  (style: fantaisie) (price: 1))))
+```
 
 In yaml 
 	a:b is a dict at:put: 
@@ -32,26 +37,34 @@ Moorcock, Michael :
 
 In DLittle we get list by construction. 
 
+
+```
 DLittle Grammar:
 start -> Pair
 Pair ->  '(' Key ':' Value Following ')'	
 Following ->   ('(' Pair ')') *
 Key -> char*
 Value -> char*
+```
 
-To do Next iteration
-	- escape character \?
-	- and/or using "" for a string when eveything is escaped. ""
+##  To do Next iteration
+
+- escape character \?
+- and/or using "" for a string when eveything is escaped. ""
 	
-	- Now we have only on sexp like stuff (with nested sexp)
-		(a:b 
-			(c:d (e:f) (g:h))
-			(c:d (e:f) (g:h)))
-		Do we want to have list of sexp without having nesting?
-		It would means that the file can be cut in the middle and we lost half of data.
+- Now we have only on sexp like stuff (with nested sexp)
+
+```
+(a:b 
+	(c:d (e:f) (g:h))
+	(c:d (e:f) (g:h)))
+```
+Do we want to have list of sexp without having nesting?
+It would means that the file can be cut in the middle and we lost half of data.
 		
 A possible variation is to introduce , to avoid ( )
 
+```
 (author : Aldiss / Brian 
   (serie : helliconia  
    		(title: Le printemps d'helliconia, read: no,  style: SF, price: 1)
@@ -59,12 +72,13 @@ A possible variation is to introduce , to avoid ( )
  	  	(title: L'hiver d'helliconia, read: no,  style: SF, price: 1))
   (books:
     	( title: L'instant de l'eclipse, read: no,  style: fantaisie, price: 1))
-
+```
 
 
 Next point is to have a DTD like description (expressed in DLittle) to map key to models.
 The idea there is how to map DLittle expression so a more complex meta model: books, series, authors...
 
+```
 DTD
 <?xml version=""1.0"" encoding=""UTF-8"" standalone=""yes""?>
 <!DOCTYPE liste_de_gens [
@@ -75,9 +89,7 @@ DTD
  <!ELEMENT genre (#PCDATA | masculin | féminin) ""féminin"">
  <!ELEMENT numero_de_secu (#PCDATA)>
 ]>
-
-
-
+```
 "
 Class {
 	#name : #DLittleLParser,
